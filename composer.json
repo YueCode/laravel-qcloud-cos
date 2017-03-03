@@ -1,6 +1,15 @@
 {
     "name": "jingling0101/laravel-qcloud-cos",
     "description": "qclouds api",
+    "keywords": [
+        "laravel",
+        "qcloud",
+        "cos",
+        "tengxun",
+        "laravel-qcloud-cos",
+        "laravel-qcloud",
+        "qcloud-cos"
+    ],
     "authors": [
         {
             "name": "jingling0101",
@@ -8,5 +17,10 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {},
+        "autoload": {
+        "psr-4": {
+            "Jingling0101\\QCloudCos\\": "src/"
+        }
+    }
 }
