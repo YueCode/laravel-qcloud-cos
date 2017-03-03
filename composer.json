@@ -1,0 +1,12 @@
+{
+    "name": "jingling0101/laravel-qcloud-cos",
+    "description": "qclouds api",
+    "authors": [
+        {
+            "name": "jingling0101",
+            "email": "admin@nmfox.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
