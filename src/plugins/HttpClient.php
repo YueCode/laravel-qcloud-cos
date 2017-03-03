@@ -6,7 +6,7 @@
  * Time: 13:38
  */
 
-namespace Jingling0101\QCloudCos;
+namespace YueCode\Cos;
 
 function my_curl_reset($handler) {
     curl_setopt($handler, CURLOPT_URL, '');

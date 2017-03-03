@@ -6,7 +6,7 @@
  * Time: 11:18
  */
 
-namespace Jingling0101\QCloudCos;
+namespace YueCode\Cos;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -6,8 +6,7 @@
  * Time: 13:41
  */
 
-namespace Jingling0101\QCloudCos;
-
+namespace YueCode\Cos;
 
 /**
  * Build custom post fields for safe multipart POST request for php before 5.5.

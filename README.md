@@ -12,7 +12,7 @@ composer require jingling0101/laravel-qcloud-cos
          * Application Service Providers...
          */
          ......
-        Jingling0101\QCloudCos\QCloudCosServiceProvider::class,
+        YueCode\Cos\QCloudCosServiceProvider::class,
     ],
 ```
 

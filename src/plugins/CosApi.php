@@ -6,8 +6,7 @@
  * Time: 13:35
  */
 
-namespace Jingling0101\QCloudCos;
-
+namespace YueCode\Cos;
 
 class CosApi {
 

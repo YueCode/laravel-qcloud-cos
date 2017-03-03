@@ -6,7 +6,7 @@
  * Time: 12:18
  */
 
-namespace Jingling0101\QCloudCos;
+namespace YueCode\Cos;
 
 include_once __DIR__ . '/plugins/ErrorCode.php';
 include_once __DIR__ . '/plugins/HttpClient.php';

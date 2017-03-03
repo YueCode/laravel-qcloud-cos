@@ -7,7 +7,7 @@
  * Time: 13:18
  */
 
-namespace Jingling0101\QCloudCos;
+namespace YueCode\Cos;
 
 /**
  * Auth class for creating reusable or nonreusable signature.

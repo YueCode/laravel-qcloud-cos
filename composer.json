@@ -20,7 +20,7 @@
     "require": {},
         "autoload": {
         "psr-4": {
-            "Jingling0101\\QCloudCos\\": "src/"
+            "YueCode\\Cos\\": "src/"
         }
     }
 }
