@@ -14,7 +14,7 @@ include_once __DIR__ . '/plugins/LibCurlHelper.php';
 include_once __DIR__ . '/plugins/LibCurlWrapper.php';
 include_once __DIR__ . '/plugins/SliceUploading.php';
 include_once __DIR__ . '/plugins/Auth.php';
-include_once __DIR__ . './plugins/CosApi.php';
+include_once __DIR__ . '/plugins/CosApi.php';
 
 class QCloudCos
 {
