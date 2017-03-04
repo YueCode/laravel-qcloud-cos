@@ -160,7 +160,7 @@ class QCloudCos
     static public function delFile($bucket, $path)
     {
         $ret = Cosapi::delFile($bucket, $path);
-        return $ret;
+        return json_encode($ret,JSON_UNESCAPED_SLASHES);
     }
 
     /*
@@ -172,7 +172,7 @@ class QCloudCos
     static public function delFolder($bucket, $folder)
     {
         $ret = Cosapi::delFolder($bucket, $folder);
-        return $ret;
+        return json_encode($ret,JSON_UNESCAPED_SLASHES);
     }
 
 }
