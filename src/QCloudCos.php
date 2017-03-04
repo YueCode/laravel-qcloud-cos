@@ -67,11 +67,26 @@ class QCloudCos
      * @param  int     $num      拉取的总数
      * @param  string  $pattern  eListBoth,ListDirOnly,eListFileOnly  默认both
      * @param  int     $order    默认正序(=0), 填1为反序,
-     * @param  string  $offset   透传字段,用于翻页,前端不需理解,需要往前/往后翻页则透传回来
+     * @param  string     透传字段,用于翻页,前端不需理解,需要往前/往后翻页则透传回来
      */
     static public function listFolder($bucket, $folder, $num = 20, $pattern = 'eListBoth', $order = 0, $context = null)
     {
         $ret = CosApi::listFolder($bucket, $folder, $num, $pattern, $order, $context);
+        return json_encode($ret,JSON_UNESCAPED_SLASHES);
+    }
+
+    /*
+     * 目录列表(前缀搜索)
+     * @param  string  $bucket bucket名称
+     * @param  string  $prefix   列出含此前缀的所有文件
+     * @param  int     $num      拉取的总数
+     * @param  string  $pattern  eListBoth(默认),ListDirOnly,eListFileOnly
+     * @param  int     $order    默认正序(=0), 填1为反序,
+     * @param  string     透传字段,用于翻页,前端不需理解,需要往前/往后翻页则透传回来
+     */
+    static public function prefixSearch($bucket, $prefix, $num = 20, $pattern = 'eListBoth', $order = 0, $context = null)
+    {
+        $ret = CosApi::prefixSearch($bucket, $prefix, $num, $pattern, $order, $context);
         return json_encode($ret,JSON_UNESCAPED_SLASHES);
     }
 
