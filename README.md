@@ -21,7 +21,7 @@ composer require jingling0101/laravel-qcloud-cos
 
 ## To publish the config settings in Laravel 5 use:
 ```php
-php artisan vendor:publish
+php artisan vendor:publish --provider="YueCode\Cos\QCloudCosServiceProvider"
 ```
 
 ## Configure config 
@@ -31,11 +31,12 @@ config/qcloudcos.php
 
 # Usage
 ```php
-use YueCode\Cos\QCloudCos;
 
 ...
 
       private $bucket = 'your bucket';
+
+      $cos = app('qclouds');
 
      /*
      * 创建目录
@@ -43,7 +44,7 @@ use YueCode\Cos\QCloudCos;
      * @param  string  $folder       目录路径
      * @param  string  $bizAttr    目录属性
      */
-     QCloudCos::createFolder($bucket, $folder, $bizAttr);
+     $cos::createFolder($bucket, $folder, $bizAttr);
     
     /**
      * 上传文件,自动判断文件大小,如果小于20M则使用普通文件上传,大于20M则使用分片上传
@@ -55,7 +56,7 @@ use YueCode\Cos\QCloudCos;
      * @param  string  $insertOnly   同名文件是否覆盖
      * @return [type]                [description]
      */
-     QCloudCos::upload($bucket, $srcPath, $dstPath, $bizAttr, $sliceSize, $insertOnly);
+     $cos::upload($bucket, $srcPath, $dstPath, $bizAttr, $sliceSize, $insertOnly);
 
     /*
      * 目录列表
@@ -66,7 +67,7 @@ use YueCode\Cos\QCloudCos;
      * @param  int     $order    默认正序(=0), 填1为反序,
      * @param  string     透传字段,用于翻页,前端不需理解,需要往前/往后翻页则透传回来
      */
-     QCloudCos::listFolder($bucket, $folder, $num, $pattern, $order, $context);
+     $cos::listFolder($bucket, $folder, $num, $pattern, $order, $context);
  
 
     /*
@@ -78,7 +79,7 @@ use YueCode\Cos\QCloudCos;
      * @param  int     $order    默认正序(=0), 填1为反序,
      * @param  string     透传字段,用于翻页,前端不需理解,需要往前/往后翻页则透传回来
      */
-     QCloudCos::prefixSearch($bucket, $prefix, $num, $pattern, $order, $context);
+     $cos::prefixSearch($bucket, $prefix, $num, $pattern, $order, $context);
 
 
     /*
@@ -87,14 +88,14 @@ use YueCode\Cos\QCloudCos;
      * @param  string  $folder      文件夹路径,SDK会补齐末尾的 '/'
      * @param  string  $bizAttr   目录属性
      */
-     QCloudCos::updateFolder($bucket, $folder, $bizAttr);
+     $cos::updateFolder($bucket, $folder, $bizAttr);
 
      /*
       * 查询目录信息
       * @param  string  $bucket bucket名称
       * @param  string  $folder       目录路径
       */
-      QCloudCos::statFolder($bucket, $folder);
+      $cos::statFolder($bucket, $folder);
 
     /*
      * 查询文件信息
@@ -112,7 +113,7 @@ use YueCode\Cos\QCloudCos;
      * @param $overwrite if the destination location is occupied, overwrite it or not?
      * @return array|mixed.
      */
-     QCloudCos::copyFile($bucket, $srcFpath, $dstFpath, $overwrite);
+     $cos::copyFile($bucket, $srcFpath, $dstFpath, $overwrite);
  
 
     /**
@@ -123,7 +124,7 @@ use YueCode\Cos\QCloudCos;
      * @param $overwrite if the destination location is occupied, overwrite it or not?
      * @return array|mixed.
      */
-     QCloudCos::moveFile($bucket, $srcFpath, $dstFpath, $overwrite);
+     $cos::moveFile($bucket, $srcFpath, $dstFpath, $overwrite);
 
 
     /*
@@ -131,7 +132,7 @@ use YueCode\Cos\QCloudCos;
      * @param  string  $bucket
      * @param  string  $path      文件路径
      */
-     QCloudCos::delFile($bucket, $path);
+     $cos::delFile($bucket, $path);
 
     /*
      * 删除目录
@@ -139,7 +140,7 @@ use YueCode\Cos\QCloudCos;
      * @param  string  $folder       目录路径
      *  注意不能删除bucket下根目录/
      */
-     QCloudCos::delFolder($bucket, $folder);
+     $cos::delFolder($bucket, $folder);
   
 
 ```
