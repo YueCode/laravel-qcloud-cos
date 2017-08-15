@@ -1,11 +1,12 @@
 {
     "name": "jingling0101/laravel-qcloud-cos",
-    "description": "qclouds api",
+    "description": "腾讯云COS对象存储 laravel qclouds cos",
     "keywords": [
         "laravel",
         "qcloud",
         "cos",
         "tengxun",
+        "腾讯云COS对象存储",
         "laravel-qcloud-cos",
         "laravel-qcloud",
         "qcloud-cos"
