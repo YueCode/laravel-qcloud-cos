@@ -102,7 +102,7 @@ config/qcloudcos.php
      * @param  string  $bucket  bucket名称
      * @param  string  $path        文件路径
      */
-     QCloudCosi::stat($bucket, $path);
+     $cos::stat($bucket, $path);
 
 
     /**
