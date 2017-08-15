@@ -1,13 +1,16 @@
 # laravel-qcloud-cos v1.0.1 for Laravel 5
 laravel-qcloud-cos
+腾讯云V4对象存储的composer包
 
 # Installation
 ## composer install 
+## 安装 
 ```php
 composer require jingling0101/laravel-qcloud-cos
 ```
 
 ## After updating composer, add the ServiceProvider to the providers array in ``` config/app.php ```
+## 配置config/app.php中providers数组 ``` config/app.php ```
 ```php
 'providers' => [
 
@@ -20,22 +23,27 @@ composer require jingling0101/laravel-qcloud-cos
 ```
 
 ## To publish the config settings in Laravel 5 use:
+## 复制配置文件到config目录
 ```php
 php artisan vendor:publish --provider="YueCode\Cos\QCloudCosServiceProvider"
 ```
 
 ## Configure config 
+## 配置config/qcloudcos.php 
 ```php
 config/qcloudcos.php 
 ```
 
 # Usage
+# 使用
 ```php
 
-...
+......
 
+    // 云对象存储v4 Bucket
     $bucket = 'your bucket';
 
+    
     $cos = app('qcloudcos');
 
      /*
