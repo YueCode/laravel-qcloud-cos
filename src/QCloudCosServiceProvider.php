@@ -33,7 +33,9 @@ class QCloudCosServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        $this->app['qcloudcos'] = new QCloudCos($this->app['config']);
+        $this->app->bind('qcloudcos',function (){
+            return new QCloudCos($this->app['config']);
+        });
     }
     /**
      * Get the services provided by the provider.
