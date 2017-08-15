@@ -34,9 +34,9 @@ config/qcloudcos.php
 
 ...
 
-      private $bucket = 'your bucket';
+    $bucket = 'your bucket';
 
-      $cos = app('qcloudcos');
+    $cos = app('qcloudcos');
 
      /*
      * 创建目录
