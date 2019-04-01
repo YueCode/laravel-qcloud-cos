@@ -39,8 +39,7 @@ class CosTest extends TestCase
     //测试获取app id
     public function testCosGetAppId()
     {
-        $app_id = '1251261883';
-        $this->assertEquals($app_id, $this->cos->getAppId());
+        $this->assertEquals($this->app_id, $this->cos->getAppId());
     }
 
 
