@@ -6,18 +6,10 @@
  * Time: 13:38
  */
 
-namespace YueCode\Cos;
+namespace YueCode\Cos\QCloud;
 
-function my_curl_reset($handler) {
-    curl_setopt($handler, CURLOPT_URL, '');
-    curl_setopt($handler, CURLOPT_HTTPHEADER, array());
-    curl_setopt($handler, CURLOPT_POSTFIELDS, array());
-    curl_setopt($handler, CURLOPT_TIMEOUT, 0);
-    curl_setopt($handler, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($handler, CURLOPT_SSL_VERIFYHOST, 0);
-}
 
-class HttpClient
+class CosHttpClient
 {
     private static $httpInfo = '';
     private static $curlHandler;
@@ -35,12 +27,13 @@ class HttpClient
      *                   ssl_version: SSL版本号
      * @return string    http请求响应
      */
-    public static function sendRequest($request) {
+    public static function sendRequest($request)
+    {
         if (self::$curlHandler) {
             if (function_exists('curl_reset')) {
                 curl_reset(self::$curlHandler);
             } else {
-                my_curl_reset(self::$curlHandler);
+                self::my_curl_reset(self::$curlHandler);
             }
         } else {
             self::$curlHandler = curl_init();
@@ -57,8 +50,8 @@ class HttpClient
         }
 
         $header = isset($request['header']) ? $request['header'] : array();
-        $header[] = 'Method:'.$method;
-        $header[] = 'User-Agent:'.config('qcloudcos.user_agent');
+        $header[] = 'Method:' . $method;
+        $header[] = 'User-Agent:' . config('qcloudcos.user_agent');
         $header[] = 'Connection: keep-alive';
 
         isset($request['host']) && $header[] = 'Host:' . $request['host'];
@@ -75,7 +68,7 @@ class HttpClient
             array_push($header, 'Expect: 100-continue');
 
             if (is_array($request['data'])) {
-                $arr = buildCustomPostFields($request['data']);
+                $arr = LibCurlHelper::buildCustomPostFields($request['data']);
                 array_push($header, 'Content-Type: multipart/form-data; boundary=' . $arr[0]);
                 curl_setopt(self::$curlHandler, CURLOPT_POSTFIELDS, $arr[1]);
             } else {
@@ -85,18 +78,18 @@ class HttpClient
         curl_setopt(self::$curlHandler, CURLOPT_HTTPHEADER, $header);
 
         $ssl = substr($request['url'], 0, 8) == "https://" ? true : false;
-        if( isset($request['cert'])){
-            curl_setopt(self::$curlHandler, CURLOPT_SSL_VERIFYPEER,true);
+        if (isset($request['cert'])) {
+            curl_setopt(self::$curlHandler, CURLOPT_SSL_VERIFYPEER, true);
             curl_setopt(self::$curlHandler, CURLOPT_CAINFO, $request['cert']);
-            curl_setopt(self::$curlHandler, CURLOPT_SSL_VERIFYHOST,2);
+            curl_setopt(self::$curlHandler, CURLOPT_SSL_VERIFYHOST, 2);
             if (isset($request['ssl_version'])) {
                 curl_setopt(self::$curlHandler, CURLOPT_SSLVERSION, $request['ssl_version']);
             } else {
                 curl_setopt(self::$curlHandler, CURLOPT_SSLVERSION, 4);
             }
-        }else if( $ssl ){
-            curl_setopt(self::$curlHandler, CURLOPT_SSL_VERIFYPEER,false);   //true any ca
-            curl_setopt(self::$curlHandler, CURLOPT_SSL_VERIFYHOST,1);       //check only host
+        } else if ($ssl) {
+            curl_setopt(self::$curlHandler, CURLOPT_SSL_VERIFYPEER, false);   //true any ca
+            curl_setopt(self::$curlHandler, CURLOPT_SSL_VERIFYHOST, 1);       //check only host
             if (isset($request['ssl_version'])) {
                 curl_setopt(self::$curlHandler, CURLOPT_SSLVERSION, $request['ssl_version']);
             } else {
@@ -108,8 +101,20 @@ class HttpClient
         return $ret;
     }
 
-    public static function info() {
+    public static function info()
+    {
         return self::$httpInfo;
+    }
+
+
+    public static function my_curl_reset($handler)
+    {
+        curl_setopt($handler, CURLOPT_URL, '');
+        curl_setopt($handler, CURLOPT_HTTPHEADER, array());
+        curl_setopt($handler, CURLOPT_POSTFIELDS, array());
+        curl_setopt($handler, CURLOPT_TIMEOUT, 0);
+        curl_setopt($handler, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($handler, CURLOPT_SSL_VERIFYHOST, 0);
     }
 
 }

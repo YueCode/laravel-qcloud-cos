@@ -6,39 +6,32 @@
  * Time: 13:42
  */
 
-namespace YueCode\Cos;
+namespace YueCode\Cos\QCloud;
 
-class HttpRequest {
-    public $timeoutMs;        // int: the maximum number of milliseconds to perform this request.
-    public $url;              // string: the url this request will be sent to.
-    public $method;           // string: POST or GET.
-    public $customHeaders;    // array: custom modified, removed and added headers.
-    public $dataToPost;       // array: the data to post.
-    public $userData;         // any: user custom data.
-}
 
-class HttpResponse {
-    public $curlErrorCode;    // int: curl last error code.
-    public $curlErrorMessage; // string: curl last error message.
-    public $statusCode;       // int: http status code.
-    public $headers;          // array: response headers.
-    public $body;             // string: response body.
-}
-
-// A simple wrapper for libcurl using multi interface to do transfers in parallel.
-class LibCurlWrapper {
+/**
+ * Class LibCurlWrapper
+ * @package YueCode\Cos\Plugins
+ */
+class LibCurlWrapper
+{
     private $sequence;        // integer: sequence id for each request.
     private $curlMultiHandle; // curl handle: curl multi handle.
     private $curlHandleInfo;  // array: array of active curl handle.
     private $idleCurlHandle;  // array: idle curl handle which can be reused.
+    private $userAgent;  //
 
-    public function __construct() {
+
+    public function __construct()
+    {
         $this->sequence = 0;
         $this->curlMultiHandle = curl_multi_init();
         $this->idleCurlHandle = array();
+        $this->userAgent = config('cos.api_cos_api_end_point');
     }
 
-    public function __destruct() {
+    public function __destruct()
+    {
         curl_multi_close($this->curlMultiHandle);
         foreach ($this->idleCurlHandle as $handle) {
             curl_close($handle);
@@ -46,7 +39,8 @@ class LibCurlWrapper {
         $this->idleCurlHandle = array();
     }
 
-    public function startSendingRequest($httpRequest, $done) {
+    public function startSendingRequest($httpRequest, $done)
+    {
         $this->sequence += 1;
 
         if (count($this->idleCurlHandle) !== 0) {
@@ -63,14 +57,14 @@ class LibCurlWrapper {
         curl_setopt($curlHandle, CURLOPT_HEADER, 1);
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1);
         $headers = $httpRequest->customHeaders;
-        array_push($headers, 'User-Agent:'.config('qcloudcos.api_cos_api_end_point'));
+        array_push($headers, 'User-Agent:' . $this->userAgent);
         if ($httpRequest->method === 'POST') {
             if (defined('CURLOPT_SAFE_UPLOAD')) {
                 curl_setopt($curlHandle, CURLOPT_SAFE_UPLOAD, true);
             }
 
             curl_setopt($curlHandle, CURLOPT_POST, true);
-            $arr = buildCustomPostFields($httpRequest->dataToPost);
+            $arr = LibCurlHelper::buildCustomPostFields($httpRequest->dataToPost);
             array_push($headers, 'Expect: 100-continue');
             array_push($headers, 'Content-Type: multipart/form-data; boundary=' . $arr[0]);
             curl_setopt($curlHandle, CURLOPT_POSTFIELDS, $arr[1]);
@@ -85,8 +79,9 @@ class LibCurlWrapper {
         $this->curlHandleInfo[$this->sequence]['request'] = $httpRequest;
     }
 
-    public function performSendingRequest() {
-        for (;;) {
+    public function performSendingRequest()
+    {
+        for (; ;) {
             $active = null;
 
             do {
@@ -117,7 +112,8 @@ class LibCurlWrapper {
         }
     }
 
-    private function processResult($info) {
+    private function processResult($info)
+    {
         $result = $info['result'];
         $handle = $info['handle'];
         $sequence = 0;
@@ -131,7 +127,7 @@ class LibCurlWrapper {
 
         $request = $this->curlHandleInfo[$sequence]['request'];
         $done = $this->curlHandleInfo[$sequence]['done'];
-        $response = new HttpResponse();
+        $response = new CosHttpResponse();
 
         if ($result !== CURLE_OK) {
             $response->curlErrorCode = $result;
@@ -165,7 +161,8 @@ class LibCurlWrapper {
         array_push($this->idleCurlHandle, $handle);
     }
 
-    private function resetCurl($handle) {
+    private function resetCurl($handle)
+    {
         if (function_exists('curl_reset')) {
             curl_reset($handle);
         } else {

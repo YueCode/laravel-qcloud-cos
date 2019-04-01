@@ -1,4 +1,4 @@
-# laravel-qcloud-cos v1.0.1 for Laravel 5
+# laravel-qcloud-cos v4.2.3 for Laravel 5
 
 ###
 laravel-qcloud-cos
@@ -7,15 +7,16 @@ laravel-qcloud-cos
 
 ###### ***************************
 
-# Installation
-### composer install 
-安装 
+# laravel Installation
+### Install via composer
+Run the following command to pull in the latest version:
+###### composer命令安装扩展包
 ```php
 composer require jingling0101/laravel-qcloud-cos
 ```
-
-### After updating composer, add the ServiceProvider to the providers array in ``` config/app.php ```
-配置config/app.php中providers数组 ``` config/app.php ```
+#####  For laravel >=5.5 that's all. This package supports Laravel new Package Discovery.    
+#####  If you are using Laravel < 5.5, you also need to add YueCode\Cos\QCloudCosServiceProvider::class to your ``` config/app.php ``` providers array:
+###### 如果laravel版本小于5.5 需要添加YueCode\Cos\QCloudCosServiceProvider::class到 ``` config/app.php ``` 文件中如下：
 ```php
 'providers' => [
 
@@ -28,28 +29,28 @@ composer require jingling0101/laravel-qcloud-cos
 ```
 
 ### To publish the config settings in Laravel 5 use:
-复制配置文件到config目录
+###### 执行命令复制COS配置文件到config目录
 ```php
 php artisan vendor:publish --provider="YueCode\Cos\QCloudCosServiceProvider"
 ```
 
 ### Configure config 
-配置config/qcloudcos.php 
+###### 配置config/cos.php 
 ```php
-config/qcloudcos.php 
+config/cos.php 
 ```
 
 # Usage
-使用
+######  使用
 ```php
 
 ......
 
-    // 云对象存储v4 Bucket
+    // 云对象存储V4 Bucket
     $bucket = 'your bucket';
 
     
-    $cos = app('qcloudcos');
+    $cos = app('cos');
 
      /*
      * 创建目录
@@ -57,7 +58,7 @@ config/qcloudcos.php
      * @param  string  $folder       目录路径
      * @param  string  $bizAttr    目录属性
      */
-     $cos::createFolder($bucket, $folder, $bizAttr);
+     $cos->createFolder($bucket, $folder, $bizAttr);
     
     /**
      * 上传文件,自动判断文件大小,如果小于20M则使用普通文件上传,大于20M则使用分片上传
@@ -69,7 +70,7 @@ config/qcloudcos.php
      * @param  string  $insertOnly   同名文件是否覆盖
      * @return [type]                [description]
      */
-     $cos::upload($bucket, $srcPath, $dstPath, $bizAttr, $sliceSize, $insertOnly);
+     $cos->upload($bucket, $srcPath, $dstPath, $bizAttr, $sliceSize, $insertOnly);
 
     /*
      * 目录列表
@@ -80,7 +81,7 @@ config/qcloudcos.php
      * @param  int     $order    默认正序(=0), 填1为反序,
      * @param  string     透传字段,用于翻页,前端不需理解,需要往前/往后翻页则透传回来
      */
-     $cos::listFolder($bucket, $folder, $num, $pattern, $order, $context);
+     $cos->listFolder($bucket, $folder, $num, $pattern, $order, $context);
  
 
     /*
@@ -92,7 +93,7 @@ config/qcloudcos.php
      * @param  int     $order    默认正序(=0), 填1为反序,
      * @param  string     透传字段,用于翻页,前端不需理解,需要往前/往后翻页则透传回来
      */
-     $cos::prefixSearch($bucket, $prefix, $num, $pattern, $order, $context);
+     $cos->prefixSearch($bucket, $prefix, $num, $pattern, $order, $context);
 
 
     /*
@@ -101,43 +102,21 @@ config/qcloudcos.php
      * @param  string  $folder      文件夹路径,SDK会补齐末尾的 '/'
      * @param  string  $bizAttr   目录属性
      */
-     $cos::updateFolder($bucket, $folder, $bizAttr);
+     $cos->updateFolder($bucket, $folder, $bizAttr);
 
      /*
       * 查询目录信息
       * @param  string  $bucket bucket名称
       * @param  string  $folder       目录路径
       */
-      $cos::statFolder($bucket, $folder);
+      $cos->statFolder($bucket, $folder);
 
     /*
      * 查询文件信息
      * @param  string  $bucket  bucket名称
      * @param  string  $path        文件路径
      */
-     $cos::stat($bucket, $path);
-
-
-    /**
-     * Copy a file.
-     * @param $bucket bucket name.
-     * @param $srcFpath source file path.
-     * @param $dstFpath destination file path.
-     * @param $overwrite if the destination location is occupied, overwrite it or not?
-     * @return array|mixed.
-     */
-     $cos::copyFile($bucket, $srcFpath, $dstFpath, $overwrite);
- 
-
-    /**
-     * Move a file.
-     * @param $bucket bucket name.
-     * @param $srcFpath source file path.
-     * @param $dstFpath destination file path.
-     * @param $overwrite if the destination location is occupied, overwrite it or not?
-     * @return array|mixed.
-     */
-     $cos::moveFile($bucket, $srcFpath, $dstFpath, $overwrite);
+     $cos->stat($bucket, $path);
 
 
     /*
@@ -145,7 +124,7 @@ config/qcloudcos.php
      * @param  string  $bucket
      * @param  string  $path      文件路径
      */
-     $cos::delFile($bucket, $path);
+     $cos->delFile($bucket, $path);
 
     /*
      * 删除目录
@@ -153,7 +132,34 @@ config/qcloudcos.php
      * @param  string  $folder       目录路径
      *  注意不能删除bucket下根目录/
      */
-     $cos::delFolder($bucket, $folder);
+     $cos->delFolder($bucket, $folder);
   
 
+```
+
+
+
+###### ***************************
+
+
+
+
+
+# Lumen Installation
+
+### Install via composer
+Run the following command to pull in the latest version:
+```php
+composer require jingling0101/laravel-qcloud-cos
+```
+Bootstrap file changes.
+Add the following snippet to the bootstrap/app.php file under the providers section as follows:
+###### 添加以下代码到```bootstrap/app``` 文件中 Register Service Providers 部分
+```php
+$app->register(YueCode\Cos\QCloudCosServiceProvider::class);
+```
+### Configure config 
+###### 配置config/cos.php 
+```php
+config/cos.php 
 ```
