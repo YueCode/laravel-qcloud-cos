@@ -119,28 +119,6 @@ config/cos.php
      $cos->stat($bucket, $path);
 
 
-    /**
-     * Copy a file.
-     * @param $bucket bucket name.
-     * @param $srcFpath source file path.
-     * @param $dstFpath destination file path.
-     * @param $overwrite if the destination location is occupied, overwrite it or not?
-     * @return array|mixed.
-     */
-     $cos->copyFile($bucket, $srcFpath, $dstFpath, $overwrite);
- 
-
-    /**
-     * Move a file.
-     * @param $bucket bucket name.
-     * @param $srcFpath source file path.
-     * @param $dstFpath destination file path.
-     * @param $overwrite if the destination location is occupied, overwrite it or not?
-     * @return array|mixed.
-     */
-     $cos->moveFile($bucket, $srcFpath, $dstFpath, $overwrite);
-
-
     /*
      * 删除文件
      * @param  string  $bucket
