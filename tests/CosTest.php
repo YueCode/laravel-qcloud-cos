@@ -112,9 +112,10 @@ class CosTest extends TestCase
     //测试上传文件
     public function testCosUpload()
     {
-        $srcPath = 'E:/1.jpg';
+        $linuxSrcPath = '/www/image/1.jpg';
+        $windowsSrcPath = 'E:/1.jpg';
         $dstPath = 't1/1.jpg';
-        $res = $this->cos->upload($this->bucket, $srcPath, $dstPath);
+        $res = $this->cos->upload($this->bucket, $windowsSrcPath, $dstPath);
         $this->isJson($res);
         $data = json_decode($res);
         $this->assertEquals($data->code, 0);
