@@ -131,28 +131,28 @@ class CosTest extends TestCase
         $this->assertEquals($data->code, 0);
     }
 
-    //测试复制文件
-    public function testCosCopyFile()
-    {
-        $srcPath = 't1/1.jpg';
-        $dstPath = 't1/2.jpg';
-        $res = $this->cos->copyFile($this->bucket, $srcPath, $dstPath);
-        $this->isJson($res);
-        $data = json_decode($res);
-        dd($data);
-        $this->assertEquals($data->code, 0);
-    }
-
-    //测试移动文件
-    public function testCosMoveFile()
-    {
-        $srcPath = 't1/1.jpg';
-        $dstPath = 't1/3.jpg';
-        $res = $this->cos->moveFile($this->bucket, $srcPath, $dstPath);
-        $this->isJson($res);
-        $data = json_decode($res);
-        $this->assertEquals($data->code, 0);
-    }
+//    //测试复制文件
+//    public function testCosCopyFile()
+//    {
+//        $srcPath = 't1/1.jpg';
+//        $dstPath = 't1/2.jpg';
+//        $res = $this->cos->copyFile($this->bucket, $srcPath, $dstPath);
+//        $this->isJson($res);
+//        $data = json_decode($res);
+//        dd($data);
+//        $this->assertEquals($data->code, 0);
+//    }
+//
+//    //测试移动文件
+//    public function testCosMoveFile()
+//    {
+//        $srcPath = 't1/1.jpg';
+//        $dstPath = 't1/3.jpg';
+//        $res = $this->cos->moveFile($this->bucket, $srcPath, $dstPath);
+//        $this->isJson($res);
+//        $data = json_decode($res);
+//        $this->assertEquals($data->code, 0);
+//    }
 
     //测试删除文件
     public function testCosDelFile()

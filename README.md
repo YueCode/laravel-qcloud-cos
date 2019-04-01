@@ -14,9 +14,9 @@ Run the following command to pull in the latest version:
 ```php
 composer require jingling0101/laravel-qcloud-cos
 ```
-
-### After updating composer, add the ServiceProvider to the providers array in ``` config/app.php ```
-###### 配置config/app.php中providers数组 ``` config/app.php ```
+### For laravel >=5.5 that's all. This package supports Laravel new Package Discovery.    
+### If you are using Laravel < 5.5, you also need to add YueCode\Cos\QCloudCosServiceProvider::class to your ``` config/app.php ``` providers array:
+###### 如果laravel版本小于5.5 需要添加YueCode\Cos\QCloudCosServiceProvider::class到 ``` config/app.php ``` 文件中如下：
 ```php
 'providers' => [
 
