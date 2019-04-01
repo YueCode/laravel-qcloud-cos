@@ -132,11 +132,11 @@ class QCloudCos
      * @param boolean $overwrite if the destination location is occupied, overwrite it or not?
      * @return array|mixed.
      */
-    public static function copyFile($bucket, $srcFPath, $dstFPath, $overwrite = false)
-    {
-        $ret = self::$cosApi->copyFile($bucket, $srcFPath, $dstFPath, $overwrite);
-        return json_encode($ret, JSON_UNESCAPED_SLASHES);
-    }
+//    public static function copyFile($bucket, $srcFPath, $dstFPath, $overwrite = false)
+//    {
+//        $ret = self::$cosApi->copyFile($bucket, $srcFPath, $dstFPath, $overwrite);
+//        return json_encode($ret, JSON_UNESCAPED_SLASHES);
+//    }
 
     /**
      * Move a file.
@@ -146,11 +146,11 @@ class QCloudCos
      * @param boolean $overwrite if the destination location is occupied, overwrite it or not?
      * @return array|mixed.
      */
-    public static function moveFile($bucket, $srcFpath, $dstFpath, $overwrite = false)
-    {
-        $ret = self::$cosApi->moveFile($bucket, $srcFpath, $dstFpath, $overwrite);
-        return json_encode($ret, JSON_UNESCAPED_SLASHES);
-    }
+//    public static function moveFile($bucket, $srcFpath, $dstFpath, $overwrite = false)
+//    {
+//        $ret = self::$cosApi->moveFile($bucket, $srcFpath, $dstFpath, $overwrite);
+//        return json_encode($ret, JSON_UNESCAPED_SLASHES);
+//    }
 
     /*
      * 删除文件
