@@ -93,25 +93,5 @@ class CosAuth
 
         return $signature;
 
-
-//        if (empty($secretId) || empty($secretKey)) {
-//            return self::AUTH_SECRET_ID_KEY_ERROR;
-//        }
-//
-//        $q_sign_time = (string)(time() - 60) . ';' . (string)(time() + 3600);
-//        $q_key_time = $q_sign_time;
-//
-//        $http_string = strtolower($request->getMethod()) . "\n" . urldecode($request->getPath()) .
-//            "\n\nhost=" . $request->getHost() . "\n";
-//        $sha1HttpString = sha1($http_string);
-//        $signKey = hash_hmac('sha1', $q_key_time, $secretKey);
-//        $stringToSign = "sha1\n$q_sign_time\n$sha1HttpString\n";
-//        $signature = hash_hmac('sha1', $stringToSign, $signKey);
-//
-//        $authorization = 'q-sign-algorithm=sha1&q-ak=' . $secretKey .
-//            "&q-sign-time=$q_sign_time&q-key-time=$q_key_time&q-header-list=host&q-url-param-list=&" .
-//            "q-signature=$signature";
-//
-//        return $authorization;
     }
 }
