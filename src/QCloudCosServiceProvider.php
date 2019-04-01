@@ -9,6 +9,7 @@
 namespace YueCode\Cos;
 
 use Illuminate\Support\ServiceProvider;
+use Laravel\Lumen\Application as LumenApplication;
 
 class QCloudCosServiceProvider extends ServiceProvider
 {
@@ -20,9 +21,15 @@ class QCloudCosServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        $this->publishes([
-            __DIR__ . '/config/qcloudcos.php' => config_path('qcloudcos.php'),
-        ]);
+        if ($this->app->runningInConsole()) {
+            if ($this->app instanceof LumenApplication) {
+                $this->app->configure('cos');
+            } else {
+                $this->publishes([
+                    $this->getConfigFile() => config_path('cos.php'),
+                ], 'config');
+            }
+        }
     }
 
     /**
@@ -32,11 +39,13 @@ class QCloudCosServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom($this->getConfigFile(), 'cos');
         //
-        $this->app->bind('qcloudcos',function (){
+        $this->app->bind('cos', function () {
             return new QCloudCos($this->app['config']);
         });
     }
+
     /**
      * Get the services provided by the provider.
      *
@@ -44,6 +53,19 @@ class QCloudCosServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['qcloudcos'];
+        return ['cos'];
     }
+
+    /**
+     * @return string
+     */
+    protected function getConfigFile()
+    {
+        $file = base_path() . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'cos.php';
+        if (file_exists($file)) {
+            return $file;
+        }
+        return __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'cos.php';
+    }
+
 }
