@@ -40,7 +40,7 @@ class CosApi
         $this->app_id = $config['app_id'];
         $this->secret_id = $config['secret_id'];
         $this->secret_key = $config['secret_key'];
-        Log::debug('CosApi config: ' . print_r($this->config, true));
+        //Log::debug('CosApi config: ' . print_r($this->config, true));
     }
 
     /**
