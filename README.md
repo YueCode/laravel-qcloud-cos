@@ -5,6 +5,7 @@ laravel-qcloud-cos
 
 腾讯云V4对象存储的composer包
 
+
 ###### ***************************
 
 # laravel Installation
@@ -46,9 +47,9 @@ config/cos.php
 
 ......
 
-    // 云对象存储V4 Bucket
-    $bucket = 'your bucket';
-
+    // 云对象存储V4 Bucket   test-1251111111
+    // $bucket = 'your bucket';
+    $bucket = 'test';
     
     $cos = app('cos');
 
