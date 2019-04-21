@@ -1,6 +1,7 @@
 {
   "name": "jingling0101/laravel-qcloud-cos",
   "description": "腾讯云COS对象存储 laravel qclouds cos",
+  "license": "MIT",
   "keywords": [
     "laravel",
     "qcloud",

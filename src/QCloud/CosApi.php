@@ -24,8 +24,8 @@ class CosApi
 
     //HTTP请求超时时间
     private $timeout = 60;
-    private $region = 'gz'; // default region is 广州
-    private $config = []; // default region is 广州
+    private $region = 'sh'; // default region is 上海
+    private $config = []; // default region is 上海
     private $app_id = ''; //
     private $secret_id = ''; //
     private $secret_key = ''; //
