@@ -49,7 +49,7 @@ config/cos.php
 
     // 云对象存储V4 Bucket 名称 test-1251111111
     // $bucket = 'your bucket';
-    $bucket = 'test'; // Bucket 名称不包含appid test-1251111111
+    $bucket = 'test'; // 注 Bucket 名称不包含appid test-1251111111
     
     $cos = app('cos');
 
